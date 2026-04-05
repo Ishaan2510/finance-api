@@ -16,11 +16,13 @@ def create_app():
     from app.routes.auth import auth_bp
     from app.routes.users import users_bp
     from app.routes.transactions import transactions_bp
-
+    from app.routes.dashboard import dashboard_bp
 
     app.register_blueprint(auth_bp, url_prefix="/api/auth")
     app.register_blueprint(users_bp, url_prefix="/api/users")
     app.register_blueprint(transactions_bp, url_prefix="/api/transactions")
+    app.register_blueprint(dashboard_bp, url_prefix="/api/dashboard")
+
 
     return app
 
