@@ -23,6 +23,21 @@ def create_app():
     app.register_blueprint(transactions_bp, url_prefix="/api/transactions")
     app.register_blueprint(dashboard_bp, url_prefix="/api/dashboard")
 
+    with app.app_context():
+        db.create_all()
+        _seed_admin()
 
     return app
 
+def _seed_admin():
+    from app.models.user import User, Role
+
+    if not User.query.filter_by(email="admin@finance.dev").first():
+        admin = User(
+            name="Admin",
+            email="admin@finance.dev",
+            role=Role.ADMIN,
+        )
+        admin.set_password("admin123")
+        db.session.add(admin)
+        db.session.commit()
