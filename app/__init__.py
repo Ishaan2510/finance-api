@@ -14,8 +14,10 @@ def create_app():
     jwt.init_app(app)
 
     from app.routes.auth import auth_bp
+    from app.routes.users import users_bp
 
     app.register_blueprint(auth_bp, url_prefix="/api/auth")
-
+    app.register_blueprint(users_bp, url_prefix="/api/users")
+    
     return app
 
